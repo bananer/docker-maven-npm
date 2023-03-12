@@ -17,7 +17,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and publish 16.x/latest
+      - name: Build and publish 18.x/latest
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: docker/build-push-action@v3
+        with:
+          build-args: |
+            MAVEN_VERSION=3-eclipse-temurin-11-alpine
+            NODE_VERSION=18.x
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/maven-npm:3-eclipse-temurin-11-alpine-node-18
+            ghcr.io/${{ github.repository_owner }}/maven-npm:latest
+      - name: Build and publish 16.x
         if: ${{ github.ref == 'refs/heads/master' }}
         uses: docker/build-push-action@v3
         with:
@@ -26,15 +37,4 @@ jobs:
             NODE_VERSION=16.x
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/maven-npm:3-jdk-11-node-16-slim
-            ghcr.io/${{ github.repository_owner }}/maven-npm:latest
-      - name: Build and publish 14.x
-        if: ${{ github.ref == 'refs/heads/master' }}
-        uses: docker/build-push-action@v3
-        with:
-          build-args: |
-            MAVEN_VERSION=3-jdk-11-slim
-            NODE_VERSION=14.x
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/maven-npm:3-jdk-11-node-14-slim
+            ghcr.io/${{ github.repository_owner }}/maven-npm:3-eclipse-temurin-11-alpine-node-16
