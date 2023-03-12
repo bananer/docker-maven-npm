@@ -22,19 +22,19 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            MAVEN_VERSION=3-eclipse-temurin-11-alpine
+            MAVEN_VERSION=3-eclipse-temurin-11-focal
             NODE_VERSION=18.x
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/maven-npm:3-eclipse-temurin-11-alpine-node-18
+            ghcr.io/${{ github.repository_owner }}/maven-npm:3-eclipse-temurin-11-node-18
             ghcr.io/${{ github.repository_owner }}/maven-npm:latest
       - name: Build and publish 16.x
         if: ${{ github.ref == 'refs/heads/master' }}
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            MAVEN_VERSION=3-jdk-11-slim
+            MAVEN_VERSION=3-eclipse-temurin-11-focal
             NODE_VERSION=16.x
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/maven-npm:3-eclipse-temurin-11-alpine-node-16
+            ghcr.io/${{ github.repository_owner }}/maven-npm:3-eclipse-temurin-11-node-16
